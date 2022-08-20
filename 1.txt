@@ -10,4 +10,46 @@ https:/.whl
 
 
 MSF Encoders cheat sheet
-python2 first https://pypi.org/project/ez_setup/#files then...
+python2 use it first https://pypi.org/project/ez_setup/#files then...
+
+1.在 github 上创建一个仓库，如：test
+
+2.复制 test 的 ssh 链接（然后可以写好README.md提交）
+
+3.Git bash操作：
+
+  1）定位到本地项目
+
+       $ cd test
+
+  2）初始化
+
+       $ git init
+
+  3）提交到本地
+
+       $ git add . （注意：add 与 . 之间有一个空格）
+
+       若出现warning提示，则重新提交一次即可
+
+  4）提交到github
+
+       $ git remote add origin (此处粘贴test 的ssh链接)git@github.com:yy(github账号名)/test(项目名).git
+
+       若提示出错信息：fatal: remote origin already exists
+
+       解决办法如下：
+
+        1、先输入$ git remote rm origin
+
+        2、再输入$ git remote add origin git@github.com:yy/test.git 就不会报错了！
+
+        3、如果输入$ git remote rm origin 还是报错的话，error: Could not remove config section 'remote.origin'. 我们需要修改gitconfig文件的内容
+
+        4、找到你的github的安装路径，例如C:\Users\ASUS\AppData\Local\GitHub\PortableGit_ca477551eeb4aea0e4ae9fcd3358bd96720bb5c8\etc
+
+        5、找到一个名为gitconfig的文件，打开它把里面的[remote "origin"]那一行删掉就好了！
+
+        $ git push -u origin master
+
+        Enter passphrase for key '/c/Users/hgpin_000/.ssh/id_rsa':  （ssh key设置密码故此需要输入密码
