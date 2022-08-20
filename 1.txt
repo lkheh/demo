@@ -1,0 +1,13 @@
+x86_64-w64-mingw32-g++ -O2 hack.cpp -o hack.exe -mconsole -I/usr/share/mingw-w64/include/ -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc -fpermissive
+
+
+z3 install
+https:/x64-win.zip
+
+then python3 install
+
+https:/.whl
+
+
+MSF Encoders cheat sheet
+python2 first https://pypi.org/project/ez_setup/#files then...
