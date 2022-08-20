@@ -1,0 +1,48 @@
+List all the options for the payload:
+msfvenom -p windows/messagebox --list-options
+
+List all available payloads:
+msfvenom --list payloads
+
+List all available encoders:
+msfvenom --list encoders
+
+Lisst all available architectures:
+msfvenom --list archs
+
+List all formats:
+msfvenom --list formats
+
+Encoders to test: 
+    x86/xor_dynamic
+    x86/opt_sub
+    x86/alpha_mixed 
+
+Generate exe files:
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/xor_dynamic --format exe --out MsgBoxXor.exe
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/alpha_mixed --format exe --out MsgBoxAlpha.exe
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/opt_sub --format exe --out MsgBoxOptSub.exe
+
+Generate raw payload in C format:
+
+No encoding:
+msfvenom -p windows/messagebox --platform Windows --arch x86 --format raw  | ndisasm -b 32 - 
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/xor_dynamic --format c --out MsgBoxXor.c
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/alpha_mixed --format c --out MsgBoxAlpha.c
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/alpha_mixed BufferRegister=EBX --format raw
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/opt_sub --format c --out MsgBoxOptSub.c
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/opt_sub BufferRegister=EBX --format c 
+
+View disassembled shellcode:
+msfvenom -p windows/messagebox --platform windows --arch x86 --encoder x86/opt_sub --format raw | ndisasm -b 32 -
+
+References
+https://www.offensive-security.com/metasploit-unleashed/Msfvenom/
+https://www.offensive-security.com/metasploit-unleashed/alphanumeric-shellcode/
+https://epi052.gitlab.io/notes-to-self/blog/2020-05-25-osce-exam-practice-part-nine/
+https://blog.rapid7.com/2014/02/26/weekly-metasploit-update-encoding-fu-new-powershell-payload-bug-fixes/
+
+Encoders source code
+https://github.com/rapid7/metasploit-framework/blob/master/modules/encoders/x86/xor_dynamic.rb
+https://github.com/rapid7/metasploit-framework/blob/master/modules/encoders/x86/alpha_mixed.rb
+https://github.com/rapid7/metasploit-framework/blob/master/modules/encoders/x86/opt_sub.rb
