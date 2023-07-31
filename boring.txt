@@ -1,7 +1,12 @@
 scan
 masscan -p1-65535 10.10.10.93 --rate=1000 -e tun0 > ports
 ports=$(cat ports | awk -F " " '{print $4}' | awk -F "/" '{print $1}' | sort -n | tr '\n' ',' | sed 's/,$//')
+tcp:
 nmap -Pn -sV -sC -p$ports 10.10.10.93
+udp:
+nmap -Pn -sU -sV -sC -p$ports 10.10.10.92
+
+
 
 sysctl -w net.ipv4.icmp_echo_ignore_all=1
 ANSI to UTF-8
