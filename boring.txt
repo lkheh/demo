@@ -1,26 +1,3 @@
-ssh tunning
-LHOST = 192.168.1.1 TARGET = 192.168.1.2 RHOST = 192.168.0.3
-
-FORWARDiNG
--f # Backgrounds ssh as well as its output -N # Don't execute a remote command (shell), just forward the port. If you use this option, you won't be logging into an ssh session also. -L # Local (Grab a port/service) -R # Reverse/Remote (Send a port/service) -D # Dynamic (Pivot)
-
--Local (-L) This command will grab the webserver on port 80 of RHOST (which you can't access normally) and forward it to 8888 of localhost, using TARGET as a proxy
-
-$ ssh -f -N -L 8888:192.168.0.3:80 user@192.168.1.2
-Now if we curl 127.0.0.1:8888 we get RHOST's webserver
-
--Reverse (-R) This does the complete opposite of -L. Instead of grabbing a remote port and binding it to a local interface, it takes a local service/port and sends it to a remote host. Let's say ur testing a network with an XP box. You know it's vulnerable to MS08-067 but 445 and 139 are filtered or blocked by the firewall. You get a limited shell but you really can't do anything with it.
-
-From the TARGET box
-
-$ ssh -f -N -R 44544:127.0.0.1:445 user@192.168.1.1
-This is going to open an ssh session from TARGET to our local Kali (or whatever distro) box and bring port 445 along for the ride. Now we can access it's SMB service on 127.0.0.1:44544 and one-click pwn it with MS08.
-
-PiVOTiNG
--Dynamic (-D) Dynamic takes an unused port and forwards it on an application level thru TARGET's ssh server. This mean's instead of grabbing or sending a server, we're basically turning TARGET into a network interface for US.
-
-$ ssh -f -N -D 9999 user@192.168.1.2
-This will create a socks proxy on 127.0.0.1:9999, forward it to TARGET's ssh server, and out the other side. Giving us access to any additional resources and subnets that TARGET has access to. Now we can forward any program through the socks proxy with proxychains just like we're on the local network.
 
 sysctl -w net.ipv4.icmp_echo_ignore_all=1
 ANSI to UTF-8
