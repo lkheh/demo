@@ -6,7 +6,8 @@ nmap -Pn -sV -sC -p$ports 10.10.10.93
 udp:
 nmap -Pn -sU -sV -sC -p$ports 10.10.10.92
 
-
+convert to sql_En
+printf 0x; printf "/etc/passwd" | xxd -ps -c 200 | tr -d '\n'; echo
 
 sysctl -w net.ipv4.icmp_echo_ignore_all=1
 ANSI to UTF-8
