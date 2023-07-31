@@ -1,5 +1,6 @@
 sysctl -w net.ipv4.icmp_echo_ignore_all=1
 ANSI to UTF-8
+fcrackzip -D -p ../../wordlists/rockyou.txt -u backup.zip
 Integer-Overflow-to-Buffer-Overflow (IO2BO)
 
 
