@@ -1,6 +1,11 @@
 sysctl -w net.ipv4.icmp_echo_ignore_all=1
 ANSI to UTF-8
 fcrackzip -D -p ../../wordlists/rockyou.txt -u backup.zip
+Privilege Escalation
+LinEnum: https://github.com/rebootuser/LinEnum
+
+
+
 Integer-Overflow-to-Buffer-Overflow (IO2BO)
 
 
