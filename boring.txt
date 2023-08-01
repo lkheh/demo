@@ -7,8 +7,8 @@ nmap -Pn -sV -sC -p$ports 10.10.10.93
 udp:
 nmap -Pn -sU -sV -sC -p$ports 10.10.10.92
 
-gobuster:
-gobuster -w directory-list-2.3-medium.txt -u http://10.10.10.129/ -t 150
+gobuster(php ext:
+gobuster -w directory-list-2.3-medium.txt -u http://10.10.10.101/ -t 100 -x php
 
 convert to sql_En
 printf 0x; printf "/etc/passwd" | xxd -ps -c 200 | tr -d '\n'; echo
