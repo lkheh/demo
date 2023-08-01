@@ -14,6 +14,7 @@ gobuster -w directory-list-2.3-medium.txt -u http://10.10.10.137:3000/ -t 150 -s
 
 ffuf
 ffuf -u http://10.10.10.171/FUZZ -w /usr/share/wordlists/dirb/common.txt -mc 200,204,301,302,307,401 -o results.txt
+python crawl.py results.txt
 
 convert to sql_En
 printf 0x; printf "/etc/passwd" | xxd -ps -c 200 | tr -d '\n'; echo
