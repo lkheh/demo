@@ -26,4 +26,4 @@ def getHash():
         hash += getCharAtPos(i)
         print(hash)
 if __name__ == '__main__':
- getHash()
+    getHash()
