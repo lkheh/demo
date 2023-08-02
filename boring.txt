@@ -1,3 +1,4 @@
+grep -c file < file1 eq cat file1 | grep -c file
 
 scan
 masscan -p1-65535 10.10.10.93 --rate=1000 -e tun0 > ports
