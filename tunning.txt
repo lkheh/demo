@@ -20,3 +20,11 @@ PiVOTiNG
 
 $ ssh -f -N -D 9999 user@192.168.1.2
 This will create a socks proxy on 127.0.0.1:9999, forward it to TARGET's ssh server, and out the other side. Giving us access to any additional resources and subnets that TARGET has access to. Now we can forward any program through the socks proxy with proxychains just like we're on the local network.
+
+
+chisel server --port 8001 --reverse
+
+chisel client https://chisel-demo.herokuapp.com:8001 R:socks
+
+
+
