@@ -1,3 +1,7 @@
+bash tcp scan
+ports=(22 53 80 3306);for host in {100..110}; do for port in ${ports[@]}; do (echo
+>/dev/tcp/172.69.0.$host/$port) > /dev/null 2>&1 && echo "port $port is open on
+172.69.0.$host"; done; done
 
 scan
 masscan -p1-65535 10.10.10.93 --rate=1000 -e tun0 > ports
