@@ -6,6 +6,7 @@ tcp:
 nmap -Pn -sV -sC -p$ports 10.10.10.93
 udp:
 nmap -Pn -sU -sV -sC -p$ports 10.10.10.92
+dnsenum --dnsserver 10.10.10.224 -f /usr/share/wordlists/SecLists/Discovery/DNS/namelist.txt realcorp.htb
 
 gobuster(php ext:
 gobuster -w directory-list-2.3-medium.txt -u http://10.10.10.101/ -t 100 -x php
