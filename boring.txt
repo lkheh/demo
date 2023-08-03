@@ -22,6 +22,9 @@ python crawl.py results.txt
 subdomain:
 ffuf -u http://10.129.142.60 -H 'Host: FUZZ.bolt.htb' -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 
+enumerate SNMP service using snmpwalk tool.
+snmpwalk -v 2c -c public 10.10.10.251
+
 foothold
 ASREPRoasting attack in order to extract a hash from user accounts that do not require pre-authentication.
 https://github.com/urbanadventurer/username-anarchy
