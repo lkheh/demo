@@ -3,6 +3,10 @@ ports=(22 53 80 3306);for host in {100..110}; do for port in ${ports[@]}; do (ec
 >/dev/tcp/172.69.0.$host/$port) > /dev/null 2>&1 && echo "port $port is open on
 172.69.0.$host"; done; done
 
+As nmap is not installed we can use Bash instead.
+for PORT in {0..1000}; do timeout 1 bash -c "</dev/tcp/172.19.0.1/$PORT
+&>/dev/null" 2>/dev/null && echo "port $PORT is open"; done
+
 scan the SNMP service and obtain all variables of the managed systems and displays them.
 snmpwalk -v 1 -c public 10.10.11.136
 
