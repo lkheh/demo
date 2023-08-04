@@ -1,3 +1,10 @@
+bypass AppLocker rules. We can use the tool Accesschk
+cd C:\inetpub\wwwroot\Data\sites\1\media\logos
+rename-item -path "accesschk64.txt" -newname "accesschk64.exe"
+.\accesschk64.exe -w -s -q -u Users "C:\Windows" >> windows.txt -accepteula
+type windows.txt
+
+
 bash tcp port scan
 ports=(22 53 80 3306);for host in {100..110}; do for port in ${ports[@]}; do (echo
 >/dev/tcp/172.69.0.$host/$port) > /dev/null 2>&1 && echo "port $port is open on
