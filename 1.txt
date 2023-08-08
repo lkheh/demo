@@ -53,3 +53,21 @@ python2 use it first https://pypi.org/project/ez_setup/#files then...
         $ git push -u origin master
 
         Enter passphrase for key '/c/Users/hgpin_000/.ssh/id_rsa':  （ssh key设置密码故此需要输入密码
+
+Under the “System variables“section, click the “New” button. Here, enter JAVA_HOME as a variable name and the installation directory of Java JDK under variable value. Then click on “OK” to save the changes.
+ Now, go back to the “Environment Variable” window and select “Path” under the System variable. Then click on the “Edit” button.
+Here, you need to add the JAVA_HOME variable to the Path. For that, click on “New” and type %JAVA_HOME%\bin to add the new environment variable. After that, click on “OK” to save the changes.
+How to Verify JAVA_HOME Variable
+By following; the above steps, you can set the JAVA_HOME variable on your system. Now, to verify the JAVA_HOME environment variable, follow the below steps:
+
+Step 1: Click the “Start” button, search for “cmd,” and open the command prompt as administrator.
+ Now run the following command:
+
+echo %JAVA_HOME%
+This command should print the directory of the Java JDK to which the JAVA_HOME is pointing. Or else, you will get an empty line if the JAVA_HOME variable is not configured correctly.
+
+Step 3: Next, run the javac --version command; to check the version of the Java compiler.
+If everything went fine, that means; you have successfully set the JAVA_HOME on Windows 11. Now, you are ready to run Java files on your Windows operating system.
+
+Conclusion
+That’s it; this is how you can set the JAVA_HOME variable on Windows
