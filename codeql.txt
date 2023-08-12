@@ -3,3 +3,6 @@ jdk 1.6
 apt-get install libc6-i386
 sudo apt-get install lib32z1
 sudo apt-get install lib32gcc1
+toolchain.xml
+setting.xml
+pom.xml
