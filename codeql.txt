@@ -3,6 +3,84 @@ jdk 1.6
 apt-get install libc6-i386
 sudo apt-get install lib32z1
 sudo apt-get install lib32gcc1
+M2_HOME='/opt/apache-maven-3.6.3'
+PATH="$M2_HOME/bin:$PATH"
+export PATH
+JAVA_HOME='/opt/jdk-13.0.1'
+PATH="$JAVA_HOME/bin:$PATH"
+export PATH
 toolchain.xml
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>1.8</version>
+      <vendor>sun</vendor>
+    </provides>
+    <configuration>
+      <jdkHome>/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/</jdkHome>
+    </configuration>
+  </toolchain>
 setting.xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository/>
+  <interactiveMode/>
+  <usePluginRegistry/>
+  <offline/>
+  <pluginGroups/>
+  <servers/>
+  <mirrors>
+    <mirror>
+     <id>aliyunmaven</id>
+     <mirrorOf>central</mirrorOf>
+     <name>阿里云公共仓库</name>
+     <url>https://maven.aliyun.com/repository/central</url>
+    </mirror>
+    <mirror>
+      <id>repo1</id>
+      <mirrorOf>central</mirrorOf>
+      <name>central repo</name>
+      <url>http://repo1.maven.org/maven2/</url>
+    </mirror>
+    <mirror>
+     <id>aliyunmaven</id>
+     <mirrorOf>apache snapshots</mirrorOf>
+     <name>阿里云阿帕奇仓库</name>
+     <url>https://maven.aliyun.com/repository/apache-snapshots</url>
+    </mirror>
+  </mirrors>
+  <proxies/>
+  <activeProfiles/>
+  <profiles>
+    <profile>  
+        <repositories>
+           <repository>
+                <id>aliyunmaven</id>
+                <name>aliyunmaven</name>
+                <url>https://maven.aliyun.com/repository/public</url>
+                <layout>default</layout>
+                <releases>
+                        <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                        <enabled>true</enabled>
+                </snapshots>
+            </repository>
+            <repository>
+                <id>MavenCentral</id>
+                <url>http://repo1.maven.org/maven2/</url>
+            </repository>
+            <repository>
+                <id>aliyunmavenApache</id>
+                <url>https://maven.aliyun.com/repository/apache-snapshots</url>
+            </repository>
+        </repositories>             
+     </profile>
+  </profiles>
+</settings>
 pom.xml
+cd /usr/bin
+sudo ln -s /root/Codeql/codeql/codeql codeql
+setting.xml
