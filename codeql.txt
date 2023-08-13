@@ -84,3 +84,16 @@ pom.xml
 cd /usr/bin
 sudo ln -s /root/Codeql/codeql/codeql codeql
 setting.xml
+
+vi /etc/resolv.conf
+在resolv.conf中增加一行，配置一个有效的dns 服务器保存如下。
+
+nameserver 114.114.114.114
+kylin 3.0.x
+pom.xml
+<plugin>
+  <groupId>net.alchim31.maven</groupId>
+  <artifactId>scala-maven-plugin</artifactId>
+  <!-- uncomment this on release -->
+  <version>3.4.1</version>
+</plugin>
