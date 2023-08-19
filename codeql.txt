@@ -107,3 +107,6 @@ class MyConfig extends TaintTracking::Configuration {
   override predicate isSink(DataFlow::Node node) { node instanceof MySink }
 }
 
+from MyConfig config, DataFlow::PathNode source, DataFlow::PathNode sink
+where config.hasFlowPath(source, sink)
+select sink.getNode(), source, sink, "Sink is reached from $@.", source.getNode(), "here"
