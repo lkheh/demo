@@ -97,3 +97,13 @@ pom.xml
   <!-- uncomment this on release -->
   <version>3.4.1</version>
 </plugin>
+
+常规模板
+class MyConfig extends TaintTracking::Configuration {
+  MyConfig() { this = "MyConfig" }
+
+  override predicate isSource(DataFlow::Node node) { node instanceof MySource }
+
+  override predicate isSink(DataFlow::Node node) { node instanceof MySink }
+}
+
