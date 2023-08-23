@@ -113,3 +113,5 @@ select sink.getNode(), source, sink, "Sink is reached from $@.", source.getNode(
 
 mvn install -rf xx5-examples，表示从中断的这个module开始继续install （附：--resume-from表示从指定模块开始继续处理）。
 
+projects setting
+project修改sdk路径
