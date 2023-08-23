@@ -1,3 +1,9 @@
+unsafe cors
+响应包中access-control-allow-origin:*
+exploit:
+origin:http://evil.com
+access-control-allow-origin:http://evil.com
+
 bypass AppLocker rules. We can use the tool Accesschk
 cd C:\inetpub\wwwroot\Data\sites\1\media\logos
 rename-item -path "accesschk64.txt" -newname "accesschk64.exe"
