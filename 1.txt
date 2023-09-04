@@ -1,4 +1,16 @@
-is this code safe?
+在VPS上安装plink工具，可以使用以下命令进行安装：
+
+sqlCopy codesudo apt-get update
+sudo apt-get install putty-tools
+在VPS上运行plink命令，将内网端口映射到VPS的端口，例如：
+
+lessCopy code
+plink -L [VPS端口]:[内网IP]:[内网端口] [VPS用户名]@[VPS IP地址] -P [VPS SSH端口] -N
+其中，[VPS端口]是将要映射到VPS上的端口号，[内网IP]是需要映射的内网机器的IP地址，[内网端口]是需要映射的内网端口号，[VPS用户名]是VPS的登录用户名，[VPS IP地址]是VPS的IP地址，[VPS SSH端口]是VPS的SSH端口号。
+
+输入VPS的登录密码，等待连接成功。
+
+现在可以通过VPS的IP地址和映射到的端口号访问内网机器的服务了。
 
 x86_64-w64-mingw32-g++ -O2 hack.cpp -o hack.exe -mconsole -I/usr/share/mingw-w64/include/ -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc -fpermissive
 
