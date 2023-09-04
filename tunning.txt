@@ -1,3 +1,45 @@
+'''
+在VPS上安装plink工具，可以使用以下命令进行安装：
+
+sqlCopy codesudo apt-get update
+sudo apt-get install putty-tools
+在VPS上运行plink命令，将内网端口映射到VPS的端口，例如：
+
+lessCopy code
+plink -L [VPS端口]:[内网IP]:[内网端口] [VPS用户名]@[VPS IP地址] -P [VPS SSH端口] -N
+其中，[VPS端口]是将要映射到VPS上的端口号，[内网IP]是需要映射的内网机器的IP地址，[内网端口]是需要映射的内网端口号，[VPS用户名]是VPS的登录用户名，[VPS IP地址]是VPS的IP地址，[VPS SSH端口]是VPS的SSH端口号。
+
+输入VPS的登录密码，等待连接成功。
+
+现在可以通过VPS的IP地址和映射到的端口号访问内网机器的服务了。
+OR
+在VPS上安装SSH服务，并确保可以通过SSH连接到VPS。如果还没有安装SSH服务，可以使用以下命令在Ubuntu系统上进行安装：
+sqlCopy codesudo apt-get update
+sudo apt-get install openssh-server
+下载并安装Putty软件。可以从Putty官方网站下载安装包，然后按照提示进行安装。
+
+启动Putty软件，输入VPS的IP地址和SSH端口号，然后点击“Open”按钮。
+
+在弹出的命令行窗口中输入VPS的登录用户名和密码，登录到VPS上。
+
+在Putty的“Session”窗口中配置端口转发。选择“Connection” -> “SSH” -> “Tunnels”选项卡，在“Add new forwarded port”下方输入需要映射的端口信息，例如：
+lessCopy codeSource port: [VPS端口]
+Destination: [内网IP]:[内网端口]
+其中，[VPS端口]是将要映射到VPS上的端口号，[内网IP]是需要映射的内网机器的IP地址，[内网端口]是需要映射的内网端口号。然后点击“Add”按钮。
+
+点击“Session”窗口左上方的“Session”按钮，输入一个会话名称并点击“Save”按钮，保存配置。
+
+点击“Open”按钮启动SSH连接，登录到VPS后，在命令行窗口中保持连接。
+
+现在可以通过VPS的IP地址和映射到的端口号访问内网机器的服务了。
+'''
+
+
+
+
+
+
+
 LHOST = 192.168.1.1 TARGET = 192.168.1.2 RHOST = 192.168.0.3
 
 FORWARDiNG
