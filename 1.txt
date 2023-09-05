@@ -1,4 +1,9 @@
-
+go env -w GOPROXY=https://proxy.golang.com.cn,direct
+go env -w GOPROXY=https://goproxy.io,direct
+go env -w GOSUMDB=gosum.io+ce6e7565+AY5qEHUk/qmHc5btzW45JVoENfazw8LielDsaI+lEbq6
+go env -w GOSUMDB=sum.golang.google.cn
+go install github.com/hakluke/haktldextract@latest
+go install github.com/hakluke/hakrawler@latest
 
 x86_64-w64-mingw32-g++ -O2 hack.cpp -o hack.exe -mconsole -I/usr/share/mingw-w64/include/ -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc -fpermissive
 
