@@ -1,3 +1,17 @@
+
+🛠️ Burp
+🛠️ Nmap
+🛠️ @securitytrails
+🛠️ @Shodanhq
+🛠️ @spiderfoot
+🛠 @ipinfoio
+🛠️ My own tools (http://github.com/hakluke)
+🛠️ Everything by 
+@pdiscoveryio
+🛠️ Everything by 
+@tomnomnom
+
+
 unsafe cors
 响应包中access-control-allow-origin:*
 exploit:
