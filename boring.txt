@@ -1,3 +1,13 @@
+GBK Encoding / MultiByte Attack
+
+嘊 = %E5%98%8A = \u560a ⇒ %0A
+嘍 = %E5%98%8D = \u560d ⇒ %0D
+嘾 = %E5%98%BE = \u563e ⇒ %3E (>)
+嘼 = %E5%98%BC = \u563c ⇒ %3C (<)
+嘢 = %E5%98%A2 = \u5622 ⇒ %22 (')
+嘧 = %E5%98%A7 = \u5627 ⇒ %27 (")
+
+For XSS, CRLF, WAF bypass
 
 🛠️ Burp
 🛠️ Nmap
