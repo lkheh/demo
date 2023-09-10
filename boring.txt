@@ -9,6 +9,9 @@ GBK Encoding / MultiByte Attack
 
 For XSS, CRLF, WAF bypass
 
+正则
+去除空白行^[ \t]*\n
+去除包含行^.*google.com.*$
 🛠️ Burp
 🛠️ Nmap
 🛠️ @securitytrails
