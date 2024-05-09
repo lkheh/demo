@@ -1,3 +1,13 @@
+1.在docopt · PyPI 下载文件
+2.解压并cd到目录下
+
+3.打开setup.py把from docopt import __version__注释并新增一行：(否则依然报错No module named 'docopt')
+
+#from docopt import __version__
+__version__ = '0.6.2'
+4.python setup.py build
+
+5.python setup.py install
 凯撒密码：这是一种简单的加密技术，其中明文中的每个字母都被替换为字母表中固定数量位置下的字母。例如，偏移1，A将被替换为B，B将变为C，依此类推。
 单字母替换密码：这是一种替换密码，其中明文的每个字母都被另一个字母替换。例如，如果“A”被替换为“D”，“B”被替换为“E”，等等，那么单词“AB”将被加密为“DE”。
 Playfair密码：由查尔斯·惠特斯通在1854年发明，这是第一种实用的双字母替换密码。它加密字母对（双字母）而不是单个字母。这使得频率分析更加困难，因为有大约600种组合，而不是26种。
