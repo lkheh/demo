@@ -1,7 +1,37 @@
 llvm
 ./clang: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
 ln -s /lib/x86_64-linux-gnu/libtinfo.so.6 /lib/x86_64-linux-gnu/libtinfo.so.5
+'''
+1）下载llvm的源代码
 
+http://llvm.org/releases/3.5.0/llvm-3.5.0.src.tar.xz
+mv llvm-3.5.0.src llvm
+2）下载clang的源代码
+
+cd llvm/tools
+wget http://llvm.org/releases/3.5.0/cfe-3.5.0.src.tar.xz
+tar xf cfe-3.5.0.src.tar.xz
+mv cfe-3.5.0.src clang
+3）下载compiler-rt的源代码
+
+cd ../projects
+wget http://llvm.org/releases/3.5.0/compiler-rt-3.5.0.src.tar.xz
+tar xf compiler-rt-3.5.0.src.tar.xz
+mv compiler-rt-3.5.0.src compiler-rt
+4）配置编译选项
+
+cd ..
+./configure --enable-optimized CC=gcc CXX=g++
+5）编译llvm
+
+make -j2
+编译成功后的提示：
+
+llvm[0]: ***** Completed Release+Asserts Build
+6）安装编译好的llvm
+
+make install
+'''
 
 1.在docopt · PyPI 下载文件
 2.解压并cd到目录下
