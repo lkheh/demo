@@ -1,3 +1,17 @@
+python3.8
+wget http://www.openssl.org/source/openssl-1.1.1l.tar.gz
+mkdir /usr/local/ssl
+./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl no-zlib
+make && make install
+echo "/usr/local/ssl/lib" >> /etc/ld.so.conf
+cd /usr/local/python3
+./configure --prefix=/usr/local/python3
+先修改Modules/Setup
+make && make install
+ln -sf /usr/local/python3/bin/python3.8 /usr/bin/python   #终端再次使用python默认的就是3.8.3，当然你也可以设置python3
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+
+
 llvm
 ./clang: error while loading shared libraries: libtinfo.so.5: cannot open shared object file: No such file or directory
 ln -s /lib/x86_64-linux-gnu/libtinfo.so.6 /lib/x86_64-linux-gnu/libtinfo.so.5
