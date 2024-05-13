@@ -1,3 +1,8 @@
+ubuntu14
+right click to open in terminal
+sudo apt-get install nautilus-open-terminal
+
+
 python3.8
 wget http://www.openssl.org/source/openssl-1.1.1l.tar.gz
 mkdir /usr/local/ssl
