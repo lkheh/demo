@@ -2,6 +2,37 @@ ubuntu14
 right click to open in terminal
 sudo apt-get install nautilus-open-terminal
 
+autologin
+2、两种配置的方式
+
+1)可以新建lightdm.conf 文件，如果没有上述文件自己进行创建即可（mkdir lightdm ,touch /etc/lightdm.conf）
+$sudo gedit  /etc/lightdm/lightdm.conf 
+
+在其中填写入如下的内容，然后重启，选择“登陆”输入root用户密码:
+
+[SeatDefaults]
+user-session=ubuntu
+greeter-show-manual-login=true
+
+2)也可以编辑50-ubuntu.conf文件
+$sudo gedit /usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf   
+在其中添加如下的内容，重新启动，选择“登陆”输入root用户密码：
+greeter-show-manual-login=true
+
+配置root自动登陆
+可以编辑lightdm.conf
+$sudo gedit  /etc/lightdm/lightdm.conf 
+
+再其中添加如下的内容，同样重新启动，登陆中用root登陆：
+[SeatDefaults]
+autologin-user=root
+greeter-session=unity-greeter
+user-session=ubuntu
+greeter-show-manual-login=true
+allow-guest=false
+修改/root/.profile文件
+/root/.profile
+文档最后一行 mesg n || true 前添加 tty -s && 即 tty -s &&mesg n || true
 
 python3.8
 wget http://www.openssl.org/source/openssl-1.1.1l.tar.gz
