@@ -1,6 +1,8 @@
 ubuntu14
 right click to open in terminal
 sudo apt-get install nautilus-open-terminal
+explorer
+nautilus .
 
 autologin
 2、两种配置的方式
