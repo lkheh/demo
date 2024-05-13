@@ -1,3 +1,8 @@
+pwn
+No module named elftools.common.py3compat
+pip3 uninstall pyelftools
+pip3 install pyelftools==0.29
+
 ubuntu14
 right click to open in terminal
 sudo apt-get install nautilus-open-terminal
