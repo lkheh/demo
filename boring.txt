@@ -46,6 +46,9 @@ allow-guest=false
 文档最后一行 mesg n || true 前添加 tty -s && 即 tty -s &&mesg n || true
 
 python3.8
+apt install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libncurses-dev \
+libsqlite3-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev tk-dev liblzma-dev lzma-dev uuid-dev
+
 wget http://www.openssl.org/source/openssl-1.1.1l.tar.gz
 mkdir /usr/local/ssl
 ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl no-zlib
