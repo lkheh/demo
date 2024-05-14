@@ -3,6 +3,10 @@ No module named elftools.common.py3compat
 pip3 uninstall pyelftools
 pip3 install pyelftools==0.29
 
+received_data = re(14)
+received_data = received_data.replace(' ', '').replace('0x', '')
+stack = int(received_data, 16)
+
 ubuntu14
 right click to open in terminal
 sudo apt-get install nautilus-open-terminal
