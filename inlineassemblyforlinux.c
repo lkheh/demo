@@ -70,5 +70,5 @@ void other_function(){
                         
     return;                                    
 }
-
+//gcc inlineassemblyforlinux.c -o inlineassemblyforlinux
 //from:https://blog.malicious.group/inline-assembly/
