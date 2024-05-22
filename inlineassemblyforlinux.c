@@ -70,3 +70,5 @@ void other_function(){
                         
     return;                                    
 }
+
+//from:https://blog.malicious.group/inline-assembly/
