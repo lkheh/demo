@@ -14,7 +14,7 @@ int main() {
     __asm(".intel_syntax noprefix;"           // intel is my preference
             "mov ecx, eax;"                   // move i from eax into ecx
             "inc ecx;"
-			      ".att_syntax prefix"                                                         
+	    ".att_syntax prefix"                                                         
             :"=c"(j)                          // outputs "c" -> ecx into j
             :"a"(i)                           // the "a" -> i into eax
             :                                 // clobbered registers, none
@@ -62,7 +62,7 @@ void other_function(){
     
     __asm(".intel_syntax noprefix;"            // restore old address
             "mov [rbp+0x8], %0;"
-			      ".att_syntax prefix"
+	    ".att_syntax prefix"
             :
             :"r"(backup)
             :
