@@ -17,7 +17,7 @@ int main() {
 	    ".att_syntax prefix"                                                         
             :"=c"(j)                          // outputs "c" -> ecx into j
             :"a"(i)                           // the "a" -> i into eax
-            :                                 // clobbered registers, none
+                                              // clobbered registers, none
             );
             
     printf("Our i value is: %d\n", i);        // we expect decimal 19
@@ -54,7 +54,7 @@ void other_function(){
             ".att_syntax prefix"			// ..._2 stack frame
             :"=c"(backup)
             :"a"(p)
-            :
+            
             );
     
     printf("THIS IS other_function!\n");       // frame has other_function_2
@@ -65,7 +65,7 @@ void other_function(){
 	    ".att_syntax prefix"
             :
             :"r"(backup)
-            :
+            
             );
                         
     return;                                    
