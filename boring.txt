@@ -1,4 +1,8 @@
 gdb
+sudo apt install glibc-source
+tar xvf glibc-2.38.tar.xz
+directory /usr/src/glibc/glibc-2.38
+可以执行“set print pretty on”命令，这样每行只会显示结构体的一名成员，而且还会根据成员的定义层次进行缩进
 ptype /o pthread
 
 wsl2
