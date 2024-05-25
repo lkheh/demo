@@ -1,3 +1,6 @@
+gdb
+ptype /o pthread
+
 wsl2
 1.windows v2ray客户端开启允许来自局域网的连接。
 
