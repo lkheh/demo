@@ -43,6 +43,10 @@ pwn
 No module named elftools.common.py3compat
 pip3 uninstall pyelftools
 pip3 install pyelftools==0.29
+repo:
+github.com/exd0tpy/CTF-browser-challenges?tab=readme-ov-file
+https://github.com/m1ghtym0/browser-pwn
+https://github.com/De4dCr0w/Browser-pwn
 
 received_data = re(14)
 received_data = received_data.replace(' ', '').replace('0x', '')
