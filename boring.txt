@@ -1,3 +1,8 @@
+recon
+JS Recon : WaybackURLs & HTTPX
+
+waybackurls url | grep '\.js$' | awk -F '?' '{print $1}' | sort -u | xargs -I{} python lazyegg[.]py "{}" --js_urls --domains --ips > urls && cat urls | grep '\.' | sort -u  | xargs -I{} httpx -silent -u {} -sc -title -td
+
 gdb
 sudo apt install glibc-source
 tar xvf glibc-2.38.tar.xz
