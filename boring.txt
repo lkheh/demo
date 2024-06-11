@@ -296,6 +296,8 @@ ffuf -u http://10.10.10.171/FUZZ -w /usr/share/wordlists/dirb/common.txt -mc 200
 python crawl.py results.txt
 subdomain:
 ffuf -u http://10.129.142.60 -H 'Host: FUZZ.bolt.htb' -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+ffuf -w /SecLists/Discovery/Web-Content/raft-large-files-lowercase.txt -u "https://www.target.gov/FUZZ" -fc 403
+
 
 enumerate SNMP service using snmpwalk tool.
 snmpwalk -v 2c -c public 10.10.10.251
