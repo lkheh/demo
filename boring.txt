@@ -12,6 +12,14 @@ JS Recon : WaybackURLs & HTTPX
 waybackurls url | grep '\.js$' | awk -F '?' '{print $1}' | sort -u | xargs -I{} python lazyegg[.]py "{}" --js_urls --domains --ips > urls && cat urls | grep '\.' | sort -u  | xargs -I{} httpx -silent -u {} -sc -title -td
 echo url |waybackurls|urldedupe
 
+gf
+mkdir ~/.gf
+Then download the different patterns to use with gf tool
+git clone https://github.com/Sherlock297/gf_patterns.git
+cd gf_patterns/
+Now copy all patterns to .gf folder, which we had created above
+cp *.json ~/.gf
+
 
 gdb
 sudo apt install glibc-source
